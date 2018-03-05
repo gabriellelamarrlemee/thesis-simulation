@@ -1,10 +1,43 @@
-
-
 .canvas {
-  position: absolute;
-  /* top: 0;
-  left: 0; */
-  z-index: -1;
+  position: fixed;
+  top: 0;
+  z-index: -3;
+  height: 100vh;
+}
+
+.detail {
+  position: fixed;
+  top:0;
+  z_index: 3;
+  visibility: hidden;
+  height: 100vh;
+}
+
+.sidebar {
+  background-color: #e8e8e8;
+  position: fixed;
+  bottom:0;
+  right:0;
+  z_index: 2;
+  visibility: hidden;
+  height: 10vh;
+  width: 100vw;
+}
+
+.main {
+  height: 100vh;
+}
+
+#container{
+  position: fixed;
+  top:0;
+  z-index:-1;
+  height: 100vh;
+  width: 100vw
+}
+
+#full {
+  /* margin-top: 200px; */
 }
 
 
@@ -13,23 +46,63 @@
 .button-rect {
   rx: 23;
   ry: 23;
-  stroke-width: 0.5;
-  stroke: #000000;
-  fill: #ffffff;
+  fill: #cccccc;
+  opacity: 0.3;
 }
 
-.button-rect:hover {
-  fill: #cccccc;
+.button-group:hover > .button-rect{
+  opacity: 1;
 }
 
 
 /* Text Styles */
 
-text {
-  text-anchor: middle;
+p {
+  text-align: center;
   alignment-baseline: middle;
-  /* display: block; */
-  font-family: 'MetaOT', Helvetica, sans-serif;
+  font-family: 'ff-meta-serif-web-pro', Helvetica, sans-serif;
+}
+
+.btn-primary,
+.btn-primary:focus,
+.btn-primary.focus,
+.btn-primary:visited {
+  background-color: #cccccc;
+  border-color: #cccccc;
+  border-radius: 20px;
+  outline: none !important;
+  color: #000000;
+}
+
+#continue-race,
+#continue-income,
+#continue-education,
+#continue-neighborhood,
+#neighborhood-A,
+#neighborhood-B,
+#neighborhood-C,
+#neighborhood-D,
+#neighborhood-E,
+#neighborhood-F,
+#neighborhood-G,
+#neighborhood-H,
+#neighborhood-I {
+  display: none;
+}
+
+#continue-race,
+#continue-income,
+#continue-education,
+#continue-neighborhood {
+  bottom: 20vh;
+}
+
+button {
+  position: fixed;
+}
+
+#bottom-buttons {
+  /* text-align: center; */
 }
 
 .title {
@@ -37,14 +110,17 @@ text {
 }
 
 .body {
-  font-size: 16px;
+  font-size: 1em;
 }
 
 .prompt {
   font-size: 20px;
 }
 
-
+.label {
+  font-family: 'ff-meta-serif-web-pro', Helvetica, sans-serif;
+  font-size: 0.8m;
+}
 
 .node:hover > .circle {
   opacity: 1;
