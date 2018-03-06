@@ -1,6 +1,7 @@
 .canvas {
   position: fixed;
   top: 0;
+  left: 0;
   z-index: -3;
   height: 100vh;
 }
@@ -20,8 +21,13 @@
   right:0;
   z_index: 2;
   visibility: hidden;
-  height: 10vh;
+  height: 13vh;
   width: 100vw;
+  display: table-cell;
+}
+
+.sidebar .row {
+  display: inline;
 }
 
 .main {
@@ -36,26 +42,15 @@
   width: 100vw
 }
 
-#full {
-  /* margin-top: 200px; */
-}
-
-
-/* Button Styles */
-
 .button-rect {
-  rx: 23;
-  ry: 23;
+  rx: 20;
+  ry: 20;
   fill: #cccccc;
-  opacity: 0.3;
 }
 
 .button-group:hover > .button-rect{
   opacity: 1;
 }
-
-
-/* Text Styles */
 
 p {
   text-align: center;
@@ -77,32 +72,20 @@ p {
 #continue-race,
 #continue-income,
 #continue-education,
-#continue-neighborhood,
-#neighborhood-A,
-#neighborhood-B,
-#neighborhood-C,
-#neighborhood-D,
-#neighborhood-E,
-#neighborhood-F,
-#neighborhood-G,
-#neighborhood-H,
-#neighborhood-I {
-  display: none;
-}
-
-#continue-race,
-#continue-income,
-#continue-education,
 #continue-neighborhood {
-  bottom: 20vh;
-}
-
-button {
-  position: fixed;
+  display: none;
+  margin: 0 auto;
 }
 
 #bottom-buttons {
-  /* text-align: center; */
+  position: fixed;
+  width: 100vw;
+  top: 75vh;
+  text-align: center;
+}
+
+.btn-group {
+  position: fixed;
 }
 
 .title {
@@ -118,7 +101,14 @@ button {
 }
 
 .label {
-  font-family: 'ff-meta-serif-web-pro', Helvetica, sans-serif;
+  font-family: 'tk-ff-meta-headline-web-pro', Helvetica, sans-serif;
+  font-size: 0.8m;
+}
+
+a {
+  text-align: center;
+  display: block;
+  font-family: 'tk-ff-meta-headline-web-pro', Helvetica, sans-serif;
   font-size: 0.8m;
 }
 

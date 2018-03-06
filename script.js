@@ -27,6 +27,8 @@ function dataLoaded(err, children, neighborhoods){
   // sidebarSvg.datum(data).call(results);
   // detailSvg.datum(data).call(detail);
 
+  // ***ADD CODE FOR A REFRESH BUTTON HERE - ON CLICK, CALL MAIN AGAIN
+
 }
 
 

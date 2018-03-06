@@ -4,17 +4,19 @@ function Main(){
   var m = {t:50,r:50,b:50,l:50},
       raceY = h/2,
       incomeY = h/2,
-      neighborhoodY = h/3,
+      neighborhoodY = h/4,
       schoolY = h/2,
       n = 500,
       m = 5,
       degrees = 180/Math.PI,
       selectedRace,
       selectedNode,
+      selectedNodeEducation,
       selectedNodeIncome,
       selectedNodeSqNum,
       selectedNodeSqSchool,
-      selectionTxt;
+      selectionTxt,
+      schls;
 
   var dispatcher = d3.dispatch('update');
   var profile = Profile();
@@ -29,17 +31,17 @@ function Main(){
   		.domain(['White','Black','Hispanic']);
   var incomeScaleX = d3.scaleLinear()
   		.domain([0,200000]);
-  var neighborhoodScaleX = d3.scaleOrdinal()
-      .domain(['A','AB','B','BB','BH','C','CW','D','DW']);
 
+  // Axis
+  var income_X_Axis = d3.axisBottom().scale(incomeScaleX).tickFormat(d3.format('$,'));
 
   // Beginning of exports section
   var exports = function(selection){
 
     var children = selection.datum()[0];
     var schools = selection.datum()[1];
-    var dataNested = d3.nest().key(function(d){ return d.schType; }).entries(schools);
-    var neighborhoods = dataNested.filter(function(d){ return d.key === 'Public'});
+    var schoolsNested = d3.nest().key(function(d){ return d.schType; }).entries(schools);
+    var neighborhoods = schoolsNested.filter(function(d){ return d.key === 'Public'});
 
     var w = w || selection.node().clientWidth,
         h = h || selection.node().clientHeight,
@@ -47,7 +49,7 @@ function Main(){
         // w_main = w*0.80,
         w_sidebar = w*0.15;
 
-    var sidebarSvg = d3.select('#sidebar').append('svg');
+    var sidebarSvg = d3.select('#sidebar').append('svg').attr('position','fixed');
     var detailSvg = d3.select('#detail').append('svg').attr('width',w).attr('height',h);
     var mainSvg = selection.append('svg').attr('width',w).attr('height',h);
 
@@ -57,6 +59,8 @@ function Main(){
       .attr('height',h);
 
     var context = canvas.node().getContext('2d');
+    context.clearRect(0, 0, w, h); // Clear the canvas.
+
 
     var wA = (w_main/12)*2,
         wB = (w_main/12)*3,
@@ -70,9 +74,12 @@ function Main(){
         wJ = (w_main/12)*4,
         wK = (w_main/12)*8;
 
-    var nbhdScaleX = d3.scaleOrdinal().domain(['A','B','C','D','E','F','G','H','I']).range([wA,wB,wC,wD,wE,wF,wG,wH,wI]);
-    var schoolScaleX = d3.scaleOrdinal().domain(['SchA','SchBB','SchCW','SchAB','SchBH','SchD','SchB','SchC','SchDW','Charter','Private']).range([wA,wB,wC,wD,wE,wF,wG,wH,wI,wJ,wK]);
-    var schoolScaleY = d3.scaleOrdinal().domain(['SchA','SchBB','SchCW','SchAB','SchBH','SchD','SchB','SchC','SchDW','Charter','Private']).range([schoolY,schoolY,schoolY,schoolY,schoolY,schoolY,schoolY,schoolY,schoolY,schoolY+50,schoolY+50]);
+    var nbhdScaleX = d3.scaleOrdinal().domain(['1','2','3','4','5','6','7','8','9'])
+      .range([wA,wB,wC,wD,wE,wF,wG,wH,wI]);
+    var schoolScaleX = d3.scaleOrdinal().domain(['SchAB','SchA','SchBH','SchBB','SchB','SchC','SchCW','SchD','SchDW','Charter','Private'])
+      .range([wA,wB,wC,wD,wE,wF,wG,wH,wI,wJ,wK]);
+    var schoolScaleY = d3.scaleOrdinal().domain(['SchAB','SchA','SchBH','SchBB','SchB','SchC','SchCW','SchD','SchDW','Charter','Private'])
+      .range([schoolY,schoolY,schoolY,schoolY,schoolY,schoolY,schoolY,schoolY,schoolY,schoolY+150,schoolY+150]);
 
     // Draw the svg circles
     var nodes = mainSvg.selectAll('.node').data(children)
@@ -88,18 +95,21 @@ function Main(){
         selectedNodeEducation = selectedNode.data()[0].education;
         selectedNodeSqNum = selectedNode.data()[0].statusQuoNeighbNum;
         selectedNodeSqSchool = selectedNode.data()[0].statusQuoSchool;
+        selectedNodeEducation = selectedNode.data()[0].education;
 
+        console.log(selectedNode.datum());
 
         d3.selectAll('.circle')
           .style('fill',function(d){ return scaleColor(d.race); })
-          .attr('opacity',0.2).attr('r',2);
+          .style('opacity',0.3).attr('r',2);
+        d3.selectAll('.outer')
+          .attr('r',7);
 
         // Selection text
         introTxtB.style('display','block');
         introTxtB.append('p').attr('class','prompt')
           .text('Your child is ' + selectedRace).style('display','block');
 
-        selectedNode.attr('id','selected');
         selectedNode.select('.circle').style('opacity',1).attr('r',4);
         nodes.on('click',null);
         introTxtA.style('display','none');
@@ -108,9 +118,14 @@ function Main(){
       });
 
     nodes.append('circle')
+      .attr('class','outer')
       .attr('r',30)
       .attr('opacity',0.0)
-      .style('cursor','pointer');
+      .style('cursor','pointer')
+      .on('click',function(d){
+        console.log(d.statusQuoNeighb);
+        console.log(d.statusQuoNeighbNum);
+      });
 
     nodes.append('circle')
       .attr('class','circle')
@@ -125,12 +140,12 @@ function Main(){
 
     // Draw the canvas circle
     function draw() {
-      nodes.each(function(d,i){
-        var canvasNode = d3.select(this);
-        context.fillStyle = canvasNode.attr('fill');
-        context.globalAlpha = canvasNode.attr('opacity');
+      d3.selectAll('.circle').each(function(d,i){
+        var contextNode = d3.select(this);
+        context.fillStyle = contextNode.style('fill');
+        context.globalAlpha = contextNode.style('opacity');
         context.beginPath();
-        context.arc(canvasNode.attr('cx'), canvasNode.attr('cy'), canvasNode.attr('r'), 0, Math.PI*2);
+        context.arc(this.getCTM().e, this.getCTM().f, contextNode.attr('r'), 0, Math.PI*2);
         context.fill();
       })
     }
@@ -181,14 +196,13 @@ function Main(){
         raceYForce = d3.forceY().y(raceY),
         incomeXForce = d3.forceX().x(function(d){ return incomeScaleX(d.income) }).strength(1),
         incomeYForce = d3.forceY().y(incomeY),
-        neighborhoodXForce = d3.forceX().x(function(d){ return nbhdScaleX(d.statusQuoNeighb); }),
-        neighborhoodYForce = d3.forceY().y(neighborhoodY+50),
+        neighborhoodXForce = d3.forceX().x(function(d){ return nbhdScaleX(d.statusQuoNeighbNum); }),
+        neighborhoodYForce = d3.forceY().y(neighborhoodY+100),
         schoolXForce = d3.forceX().x(function(d){ return schoolScaleX(d.statusQuoSchool); }),
-        schoolYForce = d3.forceY().y(function(d){ return schoolScaleY(d.statusQuoSchool)+50; });
+        schoolYForce = d3.forceY().y(function(d){ return schoolScaleY(d.statusQuoSchool)+75; });
 
     // Base simulation
     var simulation = d3.forceSimulation()
-      // .force('charge',chargeForce)
       .force('collide',collideForce);
     simulation
       .nodes(children)
@@ -199,15 +213,8 @@ function Main(){
 
       simulation.stop();
 
-    // School buttons
-    // ADD THIS STUFF IN HERE - make the public schools replace the neighborhood button. Show the dots that move and draw the ones that leave in canvas.
-    // Public school
-    // Charter school
-    // Private school
 
-
-
-    // ************ TEXT CODE ************
+    // ************ TEXT & BUTTON CODE ************
 
     var textDiv = d3.select('#container');
     var textFull = d3.select('#full');
@@ -243,13 +250,11 @@ function Main(){
 
         raceScaleX.range([(w_main*0.166),(w_main/2),(w_main*0.833)]);
         incomeScaleX.range([w_main/5,(w_main/5)*4]);
-        neighborhoodScaleX.range([(w_main/10)*2,(w_main/10)*4,(w_main/10)*6,(w_main/10)*8]);
 
         d3.select('#sidebar').style('visibility','visible').style('transition','display 2s');
 
         // Race sidebar text
-        var raceSidebarTxt = sidebarRace.append('div').attr('class','txt race-sidebar-txt');
-        raceSidebarTxt.append('p').attr('class','body').text(selectedRace);
+        d3.select('#race').select('p').html(selectedRace);
 
         simulation
           // .force('charge',null)
@@ -259,7 +264,30 @@ function Main(){
           .on('end',function(){
             console.log('end');
           });
-        // sidebarSvg.datum(children).call(profile);
+
+        nodes.on('click',function(d){
+
+          selectedRace = d.race;
+          selectedNode = d3.select(this);
+          selectedNodeIncome = selectedNode.data()[0].income;
+          selectedNodeEducation = selectedNode.data()[0].education;
+          selectedNodeSqNum = selectedNode.data()[0].statusQuoNeighbNum;
+          selectedNodeSqSchool = selectedNode.data()[0].statusQuoSchool;
+          selectedNodeEducation = selectedNode.data()[0].education;
+
+          d3.selectAll('.circle')
+            .style('fill',function(d){ return scaleColor(d.race); })
+            .style('opacity',0.3).attr('r',2);
+
+          selectedNode.select('.circle').style('opacity',1).attr('r',4);
+
+          // Race sidebar text
+          d3.select('#race').select('p').html(selectedRace);
+          // Income sidebar text
+          d3.select('#income').select('p').html(d3.format('$,')(selectedNodeIncome));
+
+        });
+
       });
 
     // Race text
@@ -275,7 +303,6 @@ function Main(){
     // Income button
     var incomeBtn = d3.select('#continue-income');
     incomeBtn.on('click',function(){
-        // draw();
         d3.select(this).transition().style('display','none');
         raceTxtA.style('display','none');
         raceTxtB.style('display','none');
@@ -284,16 +311,11 @@ function Main(){
         incomeTxt.style('display','block');
         educationBtn.style('display','block');
 
-        // Axis
-        var income_X_Axis = d3.axisBottom().scale(incomeScaleX);
-
         // Add axis
         mainSvg.append('g').attr('class','income-axis').attr('transform','translate('+ 0 +','+ ((h/2)+150) +')').call(income_X_Axis);
 
         // Income sidebar text
-        var incomeSidebarTxt = sidebarSvg.append('g').attr('class','sidebar-text-group income-sidebar-txt');
-        incomeSidebarTxt.append('text').attr('class','body').attr('x',w_sidebar/2).attr('y',h/2)
-          .text(selectedNodeIncome);
+        d3.select('#income').select('p').html(d3.format('$,')(selectedNodeIncome));
 
         simulation
           .force('x-race',null)
@@ -323,6 +345,9 @@ function Main(){
         incomeTxt.style('display','none');
         neighborhoodBtn.style('display','block');
         educationTxt.style('display','block');
+
+        // Education sidebar text
+        d3.select('#education').select('p').html(selectedNodeEducation);
 
         simulation
           .force('collide',null)
@@ -364,10 +389,31 @@ function Main(){
         .enter().append('g').attr('class','nbhd-group')
         .attr('transform',function(d){ return 'translate('+ nbhdScaleX(d.alias) +','+ neighborhoodY +')' })
         .on('click',function(d){ if(selectedNodeSqNum >= d.sqNum){
+          // *** If the choice is less than the status quo neighborhood, then trigger the diverse choice dataset and update a new variable for the selected dot.
+          console.log(selectedNodeSqNum);
+          console.log(d.sqNum);
+          console.log(selectedNode);
+          console.log(selectedNode.data()[0].statusQuoNeighbNum);
+          selectedNode.data()[0].statusQuoNeighbNum = d.sqNum;
+          selectedNodeSqNum = selectedNode.data()[0].statusQuoNeighbNum;
+          console.log(selectedNodeSqNum);
+
+          // Neighborhood sidebar text
+          d3.select('#neighborhood').select('p').html(selectedNodeSqNum);
+
           neighborhoodTxt.style('display','none');
           schoolTxt.style('display','block');
           nodes.transition().style('visibility','visible');
           simulation
+            .force('charge',null)
+            .force('collide-null',collideForceLarge)
+            .force('x-neighborhood',null)
+            .force('y-neighborhood',null)
+            .force('x-school',null)
+            .force('y-school',null)
+            .force('collide',null)
+            .force('x-race',null)
+            .force('y-race',null)
             .force('x-income',null)
             .force('y-income',null)
             .force('x-neighborhood',neighborhoodXForce)
@@ -376,17 +422,14 @@ function Main(){
             .on('end',function(){ console.log('end'); });
           createSchoolBtns();
         }})
-        .on('mouseenter',function(d){ if(selectedNodeSqNum >= d.sqNum){
+        .on('mouseenter',function(d){
             var description = d3.select('#'+d.alias+'-description');
             description.transition().style('opacity',1);
-        }})
-        .on('mouseleave',function(d){ if(selectedNodeSqNum >= d.sqNum){
+        })
+        .on('mouseleave',function(d){
             var description = d3.select('#'+d.alias+'-description');
             description.transition().style('opacity',0);
-        }});
-
-      console.log(selectedNodeSqNum);
-      // *** NEED TO UPDATE THE SELECTED NODE'S NEIGHBORHOOD TO THE NEIGHBORHOOD CHOICE - SHOULD HAPPEN BEFORE SIMULATION ***
+        });
 
       nbhds.append('circle').attr('class','nbhd').style('r',20).style('fill','#cccccc')
         .style('opacity',function(d){ if(selectedNodeSqNum >= d.sqNum){ return 1; } else { return 0.2; } });
@@ -403,16 +446,22 @@ function Main(){
     schoolTxt.append('p').attr('class','prompt').text('Choose an elementary school for your child.');
 
     var createSchoolBtns = function(){
-
-      // ...or if income level is high enough or if school label is charter
-
       // Draw the school buttons
-      var schls = mainSvg.selectAll('.school-group').data(schools)
+      schls = mainSvg.selectAll('.school-group').data(schools)
         .enter().append('g').attr('class','school-group')
         .attr('transform',function(d){ return 'translate('+ schoolScaleX(d.actual) +','+ schoolScaleY(d.actual) +')'})
         .on('click',function(d){
+          draw();
           console.log(d.actual);
           console.log(selectedNodeSqSchool);
+          console.log(selectedNode.data()[0].statusQuoSchool);
+          selectedNode.data()[0].statusQuoSchool = d.actual;
+          selectedNodeSqSchool = selectedNode.data()[0].statusQuoSchool;
+          console.log(selectedNodeSqNum);
+
+          // Neighborhood sidebar text
+          d3.select('#school').select('p').html(selectedNodeSqSchool);
+
           // neighborhoodTxt.style('display','none');
           // schoolTxt.style('display','block');
           simulation
@@ -423,32 +472,176 @@ function Main(){
           simulation.alpha(1).restart()
             .on('end',function(){ console.log('end'); });
         })
-        .on('mouseenter',function(d){ if(selectedNodeSqSchool == d.actual){
+        .on('mouseenter',function(d){ if(selectedNodeSqSchool == d.actual || selectedNodeIncome >= 60000 || d.actual == 'Charter'){
             // var description = d3.select('#'+d.alias+'-description');
             // description.transition().style('opacity',1);
             // console.log(d.sqNum);
         }})
-        .on('mouseleave',function(d){ if(selectedNodeSqSchool == d.actual){
+        .on('mouseleave',function(d){ if(selectedNodeSqSchool == d.actual || selectedNodeIncome >= 60000 || d.actual == 'Charter'){
             // var description = d3.select('#'+d.alias+'-description');
             // description.transition().style('opacity',0);
         }});
 
-      schls.append('circle').attr('class','school').style('r',20).style('fill','#cccccc')
+      schls.append('rect').attr('class','school button-rect').style('width',70).style('height',35)
+        .style('fill','#cccccc').style('border-radius','25px').style('text-align','center')
         .style('opacity',function(d){
-          if(selectedNodeSqSchool == d.actual){ return 1; }
+          if(selectedNodeSqNum == d.sqNum){ return 1; }
             else if (selectedNodeIncome >= 60000){ return 1; }
               else if (d.actual == 'Charter'){ return 1; }
                 else{ return 0.2; }
           });
       schls.append('text').text(function(d){ return d.letter; }).attr('class','label')
-        .attr('x',0).attr('dy','.35em').attr('text-anchor','middle').style('fill','#ffffff');
+        .attr('x',35).attr('y',17).attr('text-anchor','middle').style('fill','#ffffff').style('alignment-baseline','middle');
       // schools.append('text').text(function(d){ return d.sqNeighbDescr; }).attr('class','body').attr('id',function(d){ return d.alias +'-description'; })
       //   .attr('x',-10).attr('y',50).style('text-anchor','middle').style('opacity',0);
 
-
     }
 
-  // context.clearRect(0, 0, width, height); // Clear the canvas.
+    // Refresh button
+    var refreshBtn = d3.select('#refresh-btn');
+    refreshBtn.on('click',function(){
+      location.reload(true);
+    });
+
+    // Change race button
+    d3.select('#change-race').on('click',function(){
+      console.log('change race');
+
+      // Things to remove
+      incomeTxt.style('display','none');
+      educationBtn.style('display','none');
+      neighborhoodBtn.style('display','none');
+      neighborhoodTxt.style('display','none');
+      educationTxt.style('display','none');
+      d3.select('.income-axis').remove();
+      schoolTxt.style('display','none');
+      d3.selectAll('.school-group').remove();
+      d3.selectAll('.nbhd-group').remove();
+      context.clearRect(0, 0, w, h); // Clear the canvas.
+
+      // Things to show
+      incomeBtn.style('display','block');
+      raceTxtA.style('display','block');
+      raceTxtB.style('display','block');
+      raceTxtC.style('display','block');
+      raceTxtD.style('display','block');
+      nodes.transition().style('visibility','visible');
+
+
+      simulation
+        // Need to null all of the other possible forces
+        .force('x-race',null)
+        .force('y-race',null)
+        .force('charge',null)
+        .force('x-income',null)
+        .force('y-income',null)
+        .force('collide-null',null)
+        .force('x-neighborhood',null)
+        .force('y-neighborhood',null)
+        .force('x-school',null)
+        .force('y-school',null)
+        .force('collide',collideForce)
+        .force('x-race',raceXForce)
+        .force('y-race',raceYForce);
+      simulation.alpha(1).restart()
+        .on('end',function(){
+          console.log('end');
+        });
+    });
+
+    // Change income button
+    d3.select('#change-income').on('click',function(){
+      console.log('change income');
+
+      // Things to remove
+      incomeBtn.style('display','none');
+      raceTxtA.style('display','none');
+      raceTxtB.style('display','none');
+      raceTxtC.style('display','none');
+      raceTxtD.style('display','none');
+      neighborhoodBtn.style('display','none');
+      neighborhoodTxt.style('display','none');
+      educationTxt.style('display','none');
+      d3.select('.income-axis').remove();
+      schoolTxt.style('display','none');
+      d3.selectAll('.school-group').remove();
+      d3.selectAll('.nbhd-group').remove();
+      context.clearRect(0, 0, w, h); // Clear the canvas.
+
+      // Things to show
+      incomeTxt.style('display','block');
+      educationBtn.style('display','block');
+      nodes.transition().style('visibility','visible');
+      // Add axis
+      mainSvg.append('g').attr('class','income-axis').attr('transform','translate('+ 0 +','+ ((h/2)+150) +')').call(income_X_Axis);
+
+
+      simulation
+        // Need to null all of the other possible forces
+        .force('x-race',null)
+        .force('y-race',null)
+        .force('charge',null)
+        .force('x-income',incomeXForce)
+        .force('y-income',incomeYForce)
+        .force('collide-null',null)
+        .force('x-neighborhood',null)
+        .force('y-neighborhood',null)
+        .force('x-school',null)
+        .force('y-school',null)
+        .force('collide',collideForce)
+        .force('x-race',null)
+        .force('y-race',null);
+      simulation.alpha(1).restart()
+        .on('end',function(){
+          console.log('end');
+        });
+    });
+
+
+    // Change education button
+    d3.select('#change-income').on('click',function(){
+      console.log('change education');
+    });
+
+    // Change neighborhood
+    d3.select('#change-neighborhood').on('click',function(){
+      console.log('change neighborhood');
+      schoolTxt.style('display','none');
+      nodes.transition().style('visibility','hidden');
+      // schls.transition().style('visibility','hidden');
+      d3.selectAll('.school-group').remove();
+      d3.selectAll('.nbhd-group').remove();
+      neighborhoodTxt.style('display','block');
+      context.clearRect(0, 0, w, h); // Clear the canvas.
+      createNeighborhoodBtns();
+    });
+
+    // Change school
+    d3.select('#change-school').on('click',function(){
+      console.log('change school');
+      neighborhoodTxt.style('display','none');
+      schoolTxt.style('display','block');
+      d3.selectAll('.school-group').remove();
+      createSchoolBtns();
+      context.clearRect(0, 0, w, h); // Clear the canvas
+      simulation
+        .force('charge',null)
+        .force('collide-null',collideForceLarge)
+        .force('x-neighborhood',null)
+        .force('y-neighborhood',null)
+        .force('x-school',null)
+        .force('y-school',null)
+        .force('collide',null)
+        .force('x-race',null)
+        .force('y-race',null)
+        .force('x-income',null)
+        .force('y-income',null)
+        .force('x-neighborhood',neighborhoodXForce)
+        .force('y-neighborhood',neighborhoodYForce);
+      simulation.alpha(1).restart()
+        .on('end',function(){ console.log('end'); });
+
+    });
 
   }
 
