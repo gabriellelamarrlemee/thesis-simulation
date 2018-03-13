@@ -4,30 +4,59 @@ var w = document.body.clientWidth,
 
 // Number of directions for intro dots
 var m = 5;
+var map;
 
 
 d3.queue()
 	.defer(d3.csv,'./data/WorkingChildData.csv',parseChildren)
   .defer(d3.csv,'./data/WorkingNeighborhoodData.csv',parseNeighborhoods)
-	.defer(d3.json,'./data/cps_attendance_zones.json')
+  .defer(d3.csv,'./data/population.csv',parsePopulation)
+	// .defer(d3.json,'./data/cps_attendance_zones.json')
+  .defer(d3.csv,'./data/cps_attendance_zones_codes.csv')
 	.await(dataLoaded);
 
-function dataLoaded(err, children, neighborhoods){
+function dataLoaded(err, children, neighborhoods, population, mapCodes){
 
-  var mainSvg = d3.select('#main');
-  var data = [children,neighborhoods]
+  d3.json('./data/cps_attendance_zones.json', function(json){
 
-  var main = Main();
-  // var profile = Profile();
-  // var results = Results();
-  // var detail = Detail();
+    for (var i=0; i < mapCodes.length; i++) {
+      // Grab zone ID
+      var zoneID = mapCodes[i].school_id;
+      // Grab zone code
+      var dataValue = mapCodes[i].Neighborhood;
+      // Find the corresponding zone in the json
+      for (var j=0; j<json.features.length; j++) {
+        var jsonZone = json.features[j].properties.school_id;
 
-  mainSvg.datum(data).call(main);
-  // sidebarSvg.datum(data).call(profile);
-  // sidebarSvg.datum(data).call(results);
-  // detailSvg.datum(data).call(detail);
+        if (zoneID == jsonZone) {
+          // Copy the data value into the json
+          json.features[j].properties.value = dataValue;
+          // Stop looking through the json
+          break;
+        }
+      }
+    }
 
-  // ***ADD CODE FOR A REFRESH BUTTON HERE - ON CLICK, CALL MAIN AGAIN
+    map = json;
+
+    var mainSvg = d3.select('#main');
+    var detailPopSvg = d3.select('#detail-pop');
+    var detailResSvg = d3.select('#detail-res');
+    var detailSchoolSvg = d3.select('#detail-school');
+    var data = [children,neighborhoods,population,map];
+
+    var main = Main();
+    var detailPop = DetailPop();
+    var detailRes = DetailRes();
+    var detailSchool = DetailSchool();
+
+
+    mainSvg.datum(data).call(main);
+    detailPopSvg.datum(population).call(detailPop);
+    detailResSvg.datum(data).call(detailRes);
+    detailSchoolSvg.datum(data).call(detailSchool);
+
+  })
 
 }
 
@@ -37,11 +66,12 @@ function parseChildren(d){
 		race: d.Race,
     incomeLevel: +d.IncomeLevel,
 		income: +d.Income,
-    education: d.EducationPts,
+    readiness: +d.SchoolReadiness,
     statusQuoNeighb: d.StatusQuo_Neighborhood,
-    statusQuoNeighbNum: d.Num,
+    statusQuoNeighbNum: d.SQ_Num,
     statusQuoSchool: d.StatusQuo_School,
     LIHNeighb: d.LIH_Neighborhood,
+    LIHNeighbNum: d.LI_Num,
     x: w * Math.random(),
 		y: h * Math.random(),
     vx: Math.random() * 2 - 1,
@@ -57,10 +87,12 @@ function parseNeighborhoods(d){
     alias: d.Alias,
     sqNum: +d.Num,
     actual: d.SchActual,
-    letter: d.SchLetter,
     schType: d.SchType,
     count: +d.Count,
-		sqNeighbDescr: d.Description_StatusQuo,
+		sqNeighbDescrA: d.Description_StatusQuoA,
+    sqNeighbDescrB: d.Description_StatusQuoB,
+    sqNeighbDescrC: d.Description_StatusQuoC,
+    sqNeighbDescrD: d.Description_StatusQuoD,
     sqBlackRes: +d.BlackResidentPct_StatusQuo,
     sqHispanicRes: +d.HispanicResidentPct_StatusQuo,
     sqWhiteRes: +d.WhiteResidentPct_StatusQuo,
@@ -70,7 +102,19 @@ function parseNeighborhoods(d){
     sqReadingNWEA: +d.AvgNWEAReading_StatusQuo,
     sqMathNWEA: +d.AvgNWEAMath_StatusQuo,
     sqReadingNSA: +d.AvgNSAReading3_8_StatusQuo,
-    sqMathNSA: +d.AvgNSAMath3_8_StatusQuo,
+    sqMathNSA: +d.AvgNSAMath3_8_StatusQuo
+	}
+}
 
+function parsePopulation(d){
+	return {
+		year: d.Year,
+    race: d.Race,
+    total: +d.Total,
+    totalpct: +d.TotalPct,
+    child: +d.Child,
+    childpct: +d.ChildPct,
+    x: w * Math.random(),
+    y: h * Math.random()
 	}
 }

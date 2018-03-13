@@ -1,12 +1,12 @@
-Neighborhood,Alias,Num,SchActual,SchLetter,SchType,Count,Description_StatusQuo,BlackResidentPct_StatusQuo,HispanicResidentPct_StatusQuo,WhiteResidentPct_StatusQuo,AvgIncome_StatusQuo,AvgSQRP_StatusQuo,AvgAccountability_StatusQuo,AvgNWEAReading_StatusQuo,AvgNWEAMath_StatusQuo,AvgNSAReading3_8_StatusQuo,AvgNSAMath3_8_StatusQuo
-AB,A,1,SchAB,Public A,Public,71,Placeholder description,0.918913971,0.044059077,0.021419092,23268.53272,2.802816901,1.816901408,65.63380282,51.09859155,33.22535211,27.05633803
-A,B,2,SchA,Public B,Public,19,Placeholder description,0.397219593,0.475308946,0.09671741,24925.66357,2.105263158,1.263157895,71.73684211,65.52631579,43.89473684,43
-BH,C,3,SchBH,Public C,Public,46,Placeholder description,0.04030331,0.839484142,0.092043977,40060.60757,2.244444444,1.130434783,68.26086957,54.54347826,51.93478261,47.26086957
-BB,D,4,SchBB,Public D,Public,60,Placeholder description,0.92333486,0.03669902,0.020262784,40854.43667,2.745762712,1.6,60.33333333,56.05,47.3,36.15
-B,E,5,SchB,Public E,Public,82,Placeholder description,0.203390195,0.376290736,0.304137515,44350.35463,2,1.195121951,70.34146341,64.63414634,60.6097561,57.15853659
-C,F,6,SchC,Public F,Public,44,Placeholder description,0.16468812,0.250244259,0.47815409,73574.67076,1.931818182,1.136363636,68.36363636,67.45454545,69.34090909,62.90909091
-CW,G,7,SchCW,Public G,Public,21,Placeholder description,0.031855967,0.105606728,0.78744318,80461.47682,1.315789474,1,75.36842105,73.36842105,89.94736842,85.21052632
-D,H,8,SchD,Public H,Public,6,Placeholder description,0.177572397,0.095890698,0.614953316,104494.6926,1.333333333,1,80.66666667,65.16666667,90.83333333,80.33333333
-DW,I,9,SchDW,Public I,Public,8,Placeholder description,0.024087359,0.105771464,0.783539907,112836.2337,1.25,1.125,72.75,65.125,90.25,83.75
-,,,Private,Private,Private,,Placeholder description,,,,,,,,,,
-,,,Charter,Charter,Charter,,Placeholder description,,,,,,,,,,
+Neighborhood,Alias,Num,SchActual,SchType,Count,Description_StatusQuoA,Description_StatusQuoB,Description_StatusQuoC,Description_StatusQuoD,BlackResidentPct_StatusQuo,HispanicResidentPct_StatusQuo,WhiteResidentPct_StatusQuo,AvgIncome_StatusQuo,AvgSQRP_StatusQuo,SQRP_SQ,AvgAccountability_StatusQuo,Accountability_SQ,AvgNWEAReading_StatusQuo,AvgNWEAMath_StatusQuo,AvgNSAReading3_8_StatusQuo,AvgNSAMath3_8_StatusQuo,AvgTestScore_SQ
+AB,A,1,SchAB,Public,71,Not diverse: 92% Black residents,"Average income: $23,269",Public school standing: provisional support,Public school average math/reading score: 30%. ,92%,4%,2%,23268.53272,2.802816901,Level 2+,1.816901408,Provisional Support,65.63380282,51.09859155,33.22535211,27.05633803,30
+A,B,2,SchA,Public,19,"Diverse: 40% Black, 48% Hispanic, 10% White residents","Average income: $24,925",Public school standing: good ,Public school average math/reading score: 43%.,40%,48%,10%,24925.66357,2.105263158,Level 1,1.263157895,Good Standing,71.73684211,65.52631579,43.89473684,43,43
+BH,C,3,SchBH,Public,46,Not diverse: 84% Hispanic residents,"Average income $40,061",Public school standing: good,Public school average math/reading score: 50%.,4%,84%,9%,40060.60757,2.244444444,Level 1,1.130434783,Good Standing,68.26086957,54.54347826,51.93478261,47.26086957,50
+BB,D,4,SchBB,Public,60,Not diverse: 92% Black residents,"Average income $40,854",Public school standing: provisional support,Public school average math/reading score: 42%.,92%,4%,2%,40854.43667,2.745762712,Level 2+,1.6,Provisional Support,60.33333333,56.05,47.3,36.15,42
+B,E,5,SchB,Public,82,"Diverse: 20% Black, 38% Hispanic, 30% White residents","Average income $44,350",Public school standing: good ,Public school average math/reading score: 59%.,20%,38%,30%,44350.35463,2,Level 1,1.195121951,Good Standing,70.34146341,64.63414634,60.6097561,57.15853659,59
+C,F,6,SchC,Public,44,"Diverse: 16% Black, 25% Hispanic, 48% White residents","Average income is $73,575",Public school standing: good,Public school average math/reading score: 66%,16%,25%,48%,73574.67076,1.931818182,Level 1,1.136363636,Good Standing,68.36363636,67.45454545,69.34090909,62.90909091,66
+CW,G,7,SchCW,Public,21,Not diverse: 79% White residents,"Average income of $80,461",Public school standing: good,Public school average math/reading score: 88%,3%,11%,79%,80461.47682,1.315789474,Level 1+,1,Good Standing,75.36842105,73.36842105,89.94736842,85.21052632,88
+D,H,8,SchD,Public,6,Not diverse: 61% White residents,"Average income of $104,495",Public school standing: good ,Public school average math/reading score: 86%.,18%,10%,61%,104494.6926,1.333333333,Level 1+,1,Good Standing,80.66666667,65.16666667,90.83333333,80.33333333,86
+DW,I,9,SchDW,Public,8,Not diverse: 78% White residents,"Average income of $112,836",Public school standing: good,Public school average math/reading score: 87%.,2%,11%,78%,112836.2337,1.25,Level 1+,1.125,Good Standing,72.75,65.125,90.25,83.75,87
+,Private,,Private,Private,,,,,,,,,,,,,,,,,,
+,Charter,,Charter,Charter,,,,,,,,,,,,,,,,,,

@@ -1,3 +1,8 @@
+body {
+  overflow-y: hidden;
+  /* background-color: #000000; */
+}
+
 .canvas {
   position: fixed;
   top: 0;
@@ -12,6 +17,12 @@
   z_index: 3;
   visibility: hidden;
   height: 100vh;
+  width: 100vw;
+  background-color: #e8e8e8;
+}
+
+.populationSvg {
+  background-color: #e8e8e8;
 }
 
 .sidebar {
@@ -52,12 +63,6 @@
   opacity: 1;
 }
 
-p {
-  text-align: center;
-  alignment-baseline: middle;
-  font-family: 'ff-meta-serif-web-pro', Helvetica, sans-serif;
-}
-
 .btn-primary,
 .btn-primary:focus,
 .btn-primary.focus,
@@ -72,9 +77,18 @@ p {
 #continue-race,
 #continue-income,
 #continue-education,
-#continue-neighborhood {
+#continue-neighborhood-A,
+#continue-neighborhood-B {
   display: none;
   margin: 0 auto;
+}
+
+#change-race,
+#change-income,
+#change-education,
+#change-neighborhood,
+#change-school {
+  visibility: hidden;
 }
 
 #bottom-buttons {
@@ -84,25 +98,71 @@ p {
   text-align: center;
 }
 
-.btn-group {
-  position: fixed;
+#race,
+#income,
+#education,
+#neighborhood,
+#school {
+  text-align: center;
+  margin: 0 auto;
 }
+
+#right-buttons {
+  position: fixed;
+  right: 2vw;
+  top: 45vh;
+  text-align: center;
+}
+
+#residential-policy-buttons,
+#assignment-policy-buttons,
+#learn-more-race,
+#learn-more-residence,
+#learn-more-school {
+  display: none;
+  margin: 0 auto;
+}
+
+label {
+  display: inline-block;
+}
+
 
 .title {
   font-size: 36px;
+  text-align: center;
+  alignment-baseline: middle;
+  font-family: 'ff-meta-serif-web-pro', Helvetica, sans-serif;
 }
 
 .body {
   font-size: 1em;
+  text-align: center;
+  alignment-baseline: middle;
+  font-family: 'ff-meta-serif-web-pro', Helvetica, sans-serif;
+}
+
+.body-sm {
+  font-size: 0.7em;
+  text-align: center;
+  alignment-baseline: middle;
+  font-family: 'ff-meta-serif-web-pro', Helvetica, sans-serif;
+  margin-bottom: 2px;
 }
 
 .prompt {
   font-size: 20px;
+  text-align: center;
+  alignment-baseline: middle;
+  font-family: 'ff-meta-serif-web-pro', Helvetica, sans-serif;
 }
 
 .label {
-  font-family: 'tk-ff-meta-headline-web-pro', Helvetica, sans-serif;
+  font-family: 'ff-meta-serif-web-pro', Helvetica, sans-serif;
   font-size: 0.8m;
+  color: #000000;
+  text-align: center;
+  alignment-baseline: middle;
 }
 
 a {
