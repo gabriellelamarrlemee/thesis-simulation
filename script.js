@@ -11,26 +11,33 @@ d3.queue()
 	.defer(d3.csv,'./data/WorkingChildData.csv',parseChildren)
   .defer(d3.csv,'./data/WorkingNeighborhoodData.csv',parseNeighborhoods)
   .defer(d3.csv,'./data/population.csv',parsePopulation)
-	// .defer(d3.json,'./data/cps_attendance_zones.json')
-  .defer(d3.csv,'./data/cps_attendance_zones_codes.csv')
+  .defer(d3.csv,'./data/zone_data.csv')
 	.await(dataLoaded);
 
-function dataLoaded(err, children, neighborhoods, population, mapCodes){
+function dataLoaded(err, children, neighborhoods, population, mapData){
 
   d3.json('./data/cps_attendance_zones.json', function(json){
 
-    for (var i=0; i < mapCodes.length; i++) {
+    for (var i=0; i < mapData.length; i++) {
       // Grab zone ID
-      var zoneID = mapCodes[i].school_id;
+      var zoneID = mapData[i].school_id;
       // Grab zone code
-      var dataValue = mapCodes[i].Neighborhood;
+      var neighborhoodValue = mapData[i].Combo;
+      var blackValue = mapData[i].BlackAvg;
+      var whiteValue = mapData[i].WhiteAvg;
+      var hispanicValue = mapData[i].HispanicAvg;
+      var incomeValue = mapData[i].AvgIncome;
       // Find the corresponding zone in the json
       for (var j=0; j<json.features.length; j++) {
         var jsonZone = json.features[j].properties.school_id;
-
         if (zoneID == jsonZone) {
           // Copy the data value into the json
-          json.features[j].properties.value = dataValue;
+          json.features[j].properties.value = neighborhoodValue;
+          json.features[j].properties.black = +blackValue;
+          json.features[j].properties.white = +whiteValue;
+          json.features[j].properties.hispanic = +hispanicValue;
+          json.features[j].properties.income = +incomeValue;
+
           // Stop looking through the json
           break;
         }
@@ -38,22 +45,25 @@ function dataLoaded(err, children, neighborhoods, population, mapCodes){
     }
 
     map = json;
+    console.log(map);
 
     var mainSvg = d3.select('#main');
     var detailPopSvg = d3.select('#detail-pop');
     var detailResSvg = d3.select('#detail-res');
     var detailSchoolSvg = d3.select('#detail-school');
+    // var detailFinalSvg = d3.select('#detail-final');
     var data = [children,neighborhoods,population,map];
 
     var main = Main();
     var detailPop = DetailPop();
     var detailRes = DetailRes();
     var detailSchool = DetailSchool();
+    // var detailFinal = DetailFinal();
 
 
     mainSvg.datum(data).call(main);
     detailPopSvg.datum(population).call(detailPop);
-    detailResSvg.datum(data).call(detailRes);
+    detailResSvg.datum(map).call(detailRes);
     detailSchoolSvg.datum(data).call(detailSchool);
 
   })
@@ -68,10 +78,17 @@ function parseChildren(d){
 		income: +d.Income,
     readiness: +d.SchoolReadiness,
     statusQuoNeighb: d.StatusQuo_Neighborhood,
-    statusQuoNeighbNum: d.SQ_Num,
+    statusQuoNeighbNum: +d.SQ_Num,
+    statusQuoSchoolAll: d.FullAttend_SQ_School,
     statusQuoSchool: d.StatusQuo_School,
     LIHNeighb: d.LIH_Neighborhood,
-    LIHNeighbNum: d.LI_Num,
+    LIHNeighbNum: +d.LI_Num,
+    LIHSchoolAll: d.FullAttend_LIH_School,
+    LIHSchool: d.LIH_School,
+    DCNeighb: d.DiverseChoice_Neighborhood,
+    DCNeighbNum: +d.DC_Num,
+    DCSchoolAll: d.FullAttendDiverseChoice_School,
+    DCSchool: d.DiverseChoice_School,
     x: w * Math.random(),
 		y: h * Math.random(),
     vx: Math.random() * 2 - 1,

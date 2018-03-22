@@ -3,7 +3,7 @@ console.log('detailPop');
 function DetailPop(){
 
   // Scales
-  var scaleColor = d3.scaleOrdinal().domain(['White','Black','Hispanic']).range(['blue','purple','green']);
+  var scaleColor = d3.scaleOrdinal().domain(['White','Black','Hispanic']).range(['#00ccff','#cc00ff','#66ff33']);
   var ScaleX = d3.scaleOrdinal().domain(['1970','1980','1990','2000','2016'])
     .range([w/6,(w/6)*2,(w/6)*3,(w/6)*4,(w/6)*5]);
 
@@ -19,16 +19,12 @@ function DetailPop(){
         h = h || selection.node().clientHeight * 0.66;
 
     var populationSvg = selection.append('svg')
-      .attr('width',w).attr('height',h).attr('class','populationSvg')
-      .style('color','blue');
+      .attr('width',w).attr('height',h).attr('class','populationSvg');
 
     var closeButton = d3.select('#close-pop');
 
     closeButton.on('click',function(){
       d3.select('#detail-pop').style('visibility','hidden');
-      d3.select('#learn-more-race').transition().style('display','block');
-      d3.select('#sidebar').style('visibility','visible');
-      d3.select('#continue-income').style('visibility','visible');
     });
 
     // Population text
@@ -73,13 +69,13 @@ function DetailPop(){
         .attr('x',0).attr('y',0).style('text-anchor','middle');
       popLabels.append('text').text(function(d){
           return d.values[0].race + ': ' + d3.format('.0%')(d.values[0].totalpct) + ' of total  ' + d3.format('.0%')(d.values[0].childpct) + ' of children';
-        }).attr('class','label').attr('x',0).attr('y','1.5em').style('text-anchor','middle');
+        }).attr('class','graph-label').attr('x',0).attr('y','1.5em').style('text-anchor','middle');
       popLabels.append('text').text(function(d){
           return d.values[1].race + ': ' + d3.format('.0%')(d.values[1].totalpct) + ' of total  ' + d3.format('.0%')(d.values[1].childpct) + ' of children';
-        }).attr('class','label').attr('x',0).attr('y','3em').style('text-anchor','middle');
+        }).attr('class','graph-label').attr('x',0).attr('y','3em').style('text-anchor','middle');
       popLabels.append('text').text(function(d){
           return d.values[2].race + ': ' + d3.format('.0%')(d.values[2].totalpct) + ' of total  ' + d3.format('.0%')(d.values[2].childpct) + ' of children';
-        }).attr('class','label').attr('x',0).attr('y','4.5em').style('text-anchor','middle');
+        }).attr('class','graph-label').attr('x',0).attr('y','4.5em').style('text-anchor','middle');
 
 
       // Set up simulation
