@@ -9,44 +9,216 @@
 	</head>
 	<body>
 
-		<div id="consent">
 
-				<div class="span col-sm-1 col-md-1 col-lg-2"></div>
+		<div class="custom-tooltip">
+				<p class="tooltip-title"></p>
+				<p class="graph-label tooltip-one"></p>
+				<p class="graph-label tooltip-two"></p>
+				<p class="graph-label tooltip-three"></p>
+				<p class="graph-label tooltip-four"></p>
+		</div>
 
-				  <div class="col-sm-10 col-md-10 col-lg-8">
+		<div class="detail" id="detail-pop">
+			<div class="bottom-buttons">
+				<button type="button" class="btn btn-primary" id="close-pop">Close</button>
+			</div>
+			<div class="row">
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+				<div class="span col-sm-8 col-md-8 col-lg-6" id="full-detail-pop">
+				</div>
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+			</div>
+		</div>
 
-						<h2>Consent for participation in a research study</h2>
-						<p>Study Title: Analysis of the School Choice Decision-Making Process</p>
-						<p>Principal Investigator: Ann McDonald</p>
-						<p>Student Researcher: Gabrielle LaMarr LeMee</p>
-						<p>IRB Study Number: 18-03-19</p>
-						<p>Request to Participate in Research </p>
-						<p>We would like to invite you to participate in a web-based online survey. The survey is part of a research study whose purpose is to learn more about attitudes on school choice/policy and the decision-making process. This survey should take about 7-10 minutes to complete.</p>
-						<p>The decision to participate in this research project is voluntary. You do not have to participate.</p>
-						<p>The possible risks or discomforts of the study are minimal and unlikely. You may feel a little emotional distress answering personal survey questions and interacting with the simulation, however, it is expected that this will be minimal. There is also the potential risk of compromised data in the circumstance that the survey results data file is stolen. However, this is unlikely and loss of confidentiality is not a risk because there will not be any identifiable information collected.</p>
-						<p>Benefits include $3.00 for your participation in the survey and your responses may help us learn more about the topic. MTurk does not allow for prorated compensation.  In the event of an incomplete HIT, you must contact the research team and compensation will be determined based on what was completed and at the researchers' discretion.</p>
-						<p>PLEASE NOTE: This study contains a number of checks to make sure that participants are finishing the tasks honestly and completely.  As long as you read the instructions and complete the tasks, your HIT will be approved.  If you fail these checks, your HIT will be rejected.</p>
-						<p>Your part in this study is anonymous to the researcher(s). However, because of the nature of web-based surveys, it is possible that respondents could be identified by the IP address or other electronic record associated with the response. Neither the researcher nor anyone involved with this survey will be capturing those data. Any reports or publications based on this research will use only group data and will not identify you or any individual as being affiliated with this project. Your Mechanical Turk Worker ID will be used to distribute payment to you but will not be stored with the research data we collect from you.  Please be aware that your MTurk Worker ID can potentially be linked to information about you on your Amazon public profile page, depending on the settings you have for your Amazon profile.  We will not be accessing any personally identifying information about you that you may have put on your Amazon public profile page.</p>
-						<p>If you have any questions regarding electronic privacy, please feel free to contact Mark Nardone, NU’s Director of Information Security via phone at 617-373-7901, or via email at privacy@neu.edu.</p>
-						<p>If you have any questions about this study, please feel free to contact student researcher Gabrielle LaMarr LeMee via email at lamarrlemee.g@husky.neu.edu the person mainly responsible for the research.</p>
-						<p>If you have any questions regarding your rights as a research participant, please contact Nan C. Regina, Director, Human Subject Research Protection, Mail Stop: 560-177, 360 Huntington Avenue, Northeastern University, Boston, MA 02115. Tel: 617.373.4588, Email: n.regina@northeastern.edu. You may call anonymously if you wish.</p>
-						<p>This study has been reviewed and approved by the Northeastern University Institutional Review Board (# 18-03-19).</p>
-						<p>By clicking on the “accept” button below you are indicating that you consent to participate in this study. Please print out a copy of this consent form for your records. </p>
-						<p>Thank you for your time.</p>
+		<div class="detail" id="detail-res">
+			<div class="map-btns">
+				<button type="button" class="btn btn-primary" id="seventy-map">Over 70%</button>
+				<button type="button" class="btn btn-primary" id="white-map">White</button>
+				<button type="button" class="btn btn-primary" id="black-map">Black</button>
+				<button type="button" class="btn btn-primary" id="hispanic-map">Hispanic</button>
+				<button type="button" class="btn btn-primary" id="income-map">Income</button>
+			</div>
+			<div class="bottom-buttons" style="z-index: 4;">
+				<button type="button" class="btn btn-primary" id="close-res">Close</button>
+			</div>
+			<div class="row">
+				<div class="span col-sm-1 col-md-1 col-lg-1"></div>
+				<div class="span col-sm-6 col-md-6 col-lg-6" id="full-detail-res"></div>
+				<div class="span col-sm-5 col-md-5 col-lg-5"></div>
+			</div>
+		</div>
 
-						<!-- <a type="button" href="./survey.php" class="btn btn-primary btn-lg" id="agree">Agree</a> -->
-						<a type="button" href="./simulation.html" class="btn btn-primary btn-lg" id="agree">Agree</a>
-						<button type="button" class="btn btn-primary btn-lg" id="disagree">Disagree</button>
+		<div class="detail" id="detail-school">
+			<div class="bottom-buttons">
+				<button type="button" class="btn btn-primary" id="close-school">Close</button>
+			</div>
+			<div class="row">
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+				<div class="span col-sm-8 col-md-8 col-lg-6" id="full-detail-school"></div>
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+			</div>
+		</div>
 
-				  </div>
+		<div class="detail" id="detail-final">
+			<div class="bottom-buttons">
+				<button type="button" class="btn btn-primary btn-lg" id="try-again">Try Again</button>
+			</div>
+			<div class="row">
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+				<div class="span col-sm-8 col-md-8 col-lg-6" id="full-detail-final"></div>
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+			</div>
+			<div class="row">
+				<div class="span col-sm-2 col-md-2 col-lg-2"></div>
+				<div class="span col-sm-3 col-md-3 col-lg-3" id="left-detail-final"></div>
+				<div class="span col-sm-2 col-md-2 col-lg-2"></div>
+				<div class="span col-sm-3 col-md-3 col-lg-3" id="right-detail-final"></div>
+				<div class="span col-sm-2 col-md-2 col-lg-2"></div>
+			</div>		</div>
 
-				<div class="span col-sm-1 col-md-1 col-lg-2"></div>
+		<div id="container">
+			<div class="row">
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+				<div class="span col-sm-8 col-md-8 col-lg-6" id="full"></div>
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+			</div>
+			<div class="row">
+				<div class="thirds col-sm-4 col-md-4 col-lg-4" id="third-1"></div>
+				<div class="thirds col-sm-4 col-md-4 col-lg-4" id="third-2"></div>
+				<div class="thirds col-sm-4 col-md-4 col-lg-4" id="third-3"></div>
+			</div>
+			<div class="row">
+				<div class="col-sm-8 col-md-8 col-lg-8"></div>
+				<div class="col-sm-3 col-md-3 col-lg-3" id="right-col">
+					<!-- <p class="body" style="margin-top: 20px;">See what would happen with a city-wide controlled choice policy without neighborhood zones and where the make-up of each school reflects the socioeconomic make-up of the city.</p> -->
+				</div>
+				<div class="col-sm-1 col-md-1 col-lg-1"></div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-md-6 col-lg-6" id="left-top"></div>
+				<div class="col-sm-6 col-md-6 col-lg-6"></div>
+			</div>
+		</div>
+
+		<div class="main" id="main">
+
+			<div class="custom-tooltip">
+				<p class="body" id="tooltip"></p>
+			</div>
+
+			<div class="bottom-buttons">
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="learn-more-race">Learn More</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="learn-more-residence">Learn More</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="learn-more-school">Learn More</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-race">Continue</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-income">Continue</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-education">Continue</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-neighborhood-A">Continue</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-neighborhood-B">Continue</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-school">Continue</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-final">Try again</button>
+			</div>
+
+			<div id="residential-policy-buttons">
+				<div class="row">
+					<div class="col-sm-2 col-md-2 col-lg-2"></div>
+					<div class="col-sm-8 col-md-8 col-lg-8">
+						<p class="prompt">Choose a residential policy</p>
+					</div>
+					<div class="col-sm-2 col-md-2 col-lg-2"></div>
+				</div>
+				<div class="row" style="margin-top: 15%;">
+					<div class="col-sm-2 col-md-2 col-lg-2"></div>
+					<div class="col-sm-3 col-md-3 col-lg-3">
+						<button type="button" class="btn btn-primary btn-lg" id="SQ-residential" style="margin-bottom: 5%;">Status Quo Policy</button>
+						<p class="body" style="margin-top: 20px;">This selection replicates current housing patterns.</p>
+					</div>
+					<div class="col-sm-2 col-md-2 col-lg-2"></div>
+					<div class="col-sm-3 col-md-3 col-lg-3">
+						<button type="button" class="btn btn-primary btn-lg" id="LI-residential" style="margin-bottom: 5%;">More Low-Income Housing</button>
+						<p class="body" style="margin-top: 20px;">A low-income housing policy adds more low-income housing in higher value neighborhoods. </br> This may allow you to move to a nicer neighborhood.</p>
+					</div>
+					<div class="col-sm-2 col-md-2 col-lg-2"></div>
+				</div>
+			</div>
+
+			<div id="assignment-policy-buttons">
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					<label class="btn btn-primary btn-sm active" id="SQ-assignment">
+						<input type="radio" name="options" id="option1" autocomplete="off" checked> Status Quo
+					</label>
+					<label class="btn btn-primary btn-sm" id="CC-Chicago">
+						<input type="radio" name="options" id="option2" autocomplete="off"> City-Wide Controlled Choice
+					</label>
+					<!-- <label class="btn btn-primary btn-sm" id="full-attendance">
+						<input type="radio" name="options" id="option3" autocomplete="off"> Full Attendance
+					</label> -->
+				</div>
+			</div>
 
 		</div>
 
-		<script src='./lib/jquery-1.12.4.min.js'></script>
-		<script src='./lib/js/bootstrap.min.js'></script>
+		<div id="sidebar">
+				<div class="sidebar-section" id="image">
+				</div>
+				<div class="sidebar-section" id="race">
+					<p class="body-sm">Race/Ethnicity</p>
+					<p class="body profile-race"></p>
+				</div>
+				<div class="sidebar-section" id="income">
+					<p class="body-sm">Income</p>
+					<p class="body profile-income"></p>
+				</div>
+				<div class="sidebar-section" id="education">
+					<p class="body-sm">Readiness</p>
+					<p class="body profile-readiness"></p>
+				</div>
+				<div class="sidebar-section" id="neighborhood">
+					<p class="body-sm">Neighborhood</p>
+					<p class="body profile-neighborhood"></p>
+				</div>
+				<div class="sidebar-section" id="residential-segregation">
+					<p class="body-sm">Residential Segregation</p>
+					<p class="body profile-residential-segregation"></p>
+				</div>
+				<div class="sidebar-section" id="school">
+					<p class="body-sm">School</p>
+					<p class="body profile-school"></p>
+				</div>
+				<div class="sidebar-section" id="school-segregation">
+					<p class="body-sm">School Segregation</p>
+					<p class="body profile-school-segregation"></p>
+				</div>
+				<div class="sidebar-section" id="academic-score">
+					<p class="body-sm">Your School's Academics</p>
+					<p class="body profile-academic"></p>
+				</div>
+				<div class="sidebar-section" id="non-academic-score">
+					<p class="body-sm">Your School's Diversity</p>
+					<p class="body profile-non-academic"></p>
+				</div>
+		</div>
 
+		<defs>
+			<linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+				<stop offset="0%"   stop-color="#05a"/>
+				<stop offset="100%" stop-color="#0a5"/>
+			</linearGradient>
+		</defs>
+
+		<script src='./lib/d3.js' type='text/javascript'></script>
+		<script src='./lib/jquery-1.12.4.min.js'></script>
+		<script src='./lib/bootstrap.min.js'></script>
+
+		<!--include modules-->
+		<script src='./modules/main.js' type='text/javascript'></script>
+		<script src='./modules/profile.js' type='text/javascript'></script>
+		<script src='./modules/results.js' type='text/javascript'></script>
+		<script src='./modules/detailPop.js' type='text/javascript'></script>
+		<script src='./modules/detailRes.js' type='text/javascript'></script>
+		<script src='./modules/detailSchool.js' type='text/javascript'></script>
+		<script src='./modules/detailFinal.js' type='text/javascript'></script>
+		<script src='script.js' type='text/javascript'></script>
 
 	</body>
 </html>
