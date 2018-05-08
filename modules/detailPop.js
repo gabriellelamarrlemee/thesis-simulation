@@ -29,9 +29,9 @@ function DetailPop(){
 
     // Population text
     var populationTxt = d3.select('#full-detail-pop').append('div').attr('class','txt education-txt').style('margin-top',h/10+'px').attr('position','fixed');
-    populationTxt.append('p').attr('class','body').text('Demographic Change');
+    populationTxt.append('p').attr('class','page-title').text('Demographic Change');
     populationTxt.append('p').attr('class','body').text('The demographics of Chicago have changed dramatically over the past 48 years.');
-    populationTxt.append('p').attr('class','body').text('While the black population has remained relatively stable, whites have left the city in large numnbers as the Hispanic population increased.');
+    populationTxt.append('p').attr('class','body').text('While the black population has remained relatively stable, whites have left the city in large numnbers as the Hispanic population increased. Additionally, white children as a percentage of the total white population has shrunk and over the past decade, the same has happened with the black child population.');
 
 
     var drawPopulationHistory = function(){
@@ -80,7 +80,7 @@ function DetailPop(){
 
       // Set up simulation
       var collideForce = d3.forceCollide().radius(function(d){ return (d.total * multScale); }),
-          YForce = d3.forceY().y(h/2),
+          YForce = d3.forceY().y(h*0.25),
           XForce = d3.forceX().x(function(d){ return ScaleX(d.year); });
 
       // Base simulation

@@ -6,7 +6,8 @@ function DetailRes(){
   var scaleColorWhite = d3.scaleLinear().domain([0,1]).range(['#202020','#00ccff']);
   var scaleColorBlack = d3.scaleLinear().domain([0,1]).range(['#202020','#cc00ff']);
   var scaleColorHispanic = d3.scaleLinear().domain([0,1]).range(['#202020','#66ff33']);
-  var scaleColorIncome = d3.scaleLinear().domain([0,200000]).range(['#202020','#E8E8E8']);
+  // var scaleColorIncome = d3.scaleLinear().domain([0,200000]).range(['#202020','#E8E8E8']);
+  var scaleColorIncome = d3.scaleLinear().domain([0,200000]).range([0,1]);
   // Mapping
   var projection = d3.geoAlbersUsa(),
       projectionPath = d3.geoPath().projection(projection);
@@ -66,16 +67,16 @@ function DetailRes(){
       zones.style('fill',function(d){ return scaleColorHispanic(d.properties.hispanic); });
     });
     d3.select('#income-map').on('click',function(){
-      zones.style('fill',function(d){ return scaleColorIncome(d.properties.income); });
+      zones.style('fill','#E8E8E8');
+      zones.style('opacity',function(d){ return scaleColorIncome(d.properties.income); });
     });
 
     // Residential text
     var residentialTxt = d3.select('#full-detail-res').append('div').attr('class','txt').style('margin-top',h/10+'px');
     residentialTxt.append('p').attr('class','page-title-left').text('Residential Segregation');
-    residentialTxt.append('p').attr('class','body-left').text('Chicago is a very segregated city. The current levels of segregation are XX according to the dissimilarity index and XX according to the isolation index.');
-    residentialTxt.append('p').attr('class','body-left').text('Historically, blacks were confined to certain neighborhoods through zoning laws and redlining which prevented them from moving to other areas. Additionally, whites avoided "black" neighborhoods. Today, it is not uncommon to find Chicago neighborhoods that are 99.XX% black.');
-    residentialTxt.append('p').attr('class','body-left').text('[Description of how this impacts the economic future of the city and of the minority population.]');
-    residentialTxt.append('p').attr('class','body-left').text('[Description of the large and growing Hispanic population.]');
+    residentialTxt.append('p').attr('class','body-left').text('Chicago is a very segregated city. It is in the top 10 across the country in segregation between blacks and whites and Hispanics and whites.');
+    residentialTxt.append('p').attr('class','body-left').text('Black families were confined to certain neighborhoods through zoning laws and redlining which prevented them from moving to other areas. White families today avoid black and Hispanic neighborhoods. It is not uncommon to find Chicago neighborhoods that are over 99% black.');
+    residentialTxt.append('p').attr('class','body-left').text('The map to the right shows neighborhooods that are over 70% white, black, or Hispanic. Social scientists use the 70% threshold to determine whether an area is racially isolated.');
 
 
     var closeButton = d3.select('#close-res');

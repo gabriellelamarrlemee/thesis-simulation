@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<script src="https://use.typekit.net/ucn5qiq.js"></script>
+		<script>try{Typekit.load({ async: true });}catch(e){}</script>
+		<link href='./lib/bootstrap.min.css' rel='stylesheet' />
+		<link href='global.css' rel='stylesheet' />
+	</head>
+	<body>
+
+
+		<div class="custom-tooltip">
+				<p class="tooltip-title"></p>
+				<p class="graph-label tooltip-one"></p>
+				<p class="graph-label tooltip-two"></p>
+				<p class="graph-label tooltip-three"></p>
+				<p class="graph-label tooltip-four"></p>
+		</div>
+
+		<div class="detail" id="detail-pop">
+			<div class="bottom-buttons">
+				<button type="button" class="btn btn-primary" id="close-pop">Close</button>
+			</div>
+			<div class="row">
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+				<div class="span col-sm-8 col-md-8 col-lg-6" id="full-detail-pop">
+				</div>
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+			</div>
+		</div>
+
+		<div class="detail" id="detail-res">
+			<div class="map-btns">
+				<button type="button" class="btn btn-primary" id="seventy-map">Over 70%</button>
+				<button type="button" class="btn btn-primary" id="white-map">White</button>
+				<button type="button" class="btn btn-primary" id="black-map">Black</button>
+				<button type="button" class="btn btn-primary" id="hispanic-map">Hispanic</button>
+				<button type="button" class="btn btn-primary" id="income-map">Income</button>
+			</div>
+			<div class="bottom-buttons" style="z-index: 4;">
+				<button type="button" class="btn btn-primary" id="close-res">Close</button>
+			</div>
+			<div class="row">
+				<div class="span col-sm-1 col-md-1 col-lg-1"></div>
+				<div class="span col-sm-6 col-md-6 col-lg-6" id="full-detail-res"></div>
+				<div class="span col-sm-5 col-md-5 col-lg-5"></div>
+			</div>
+		</div>
+
+		<div class="detail" id="detail-school">
+			<div class="bottom-buttons">
+				<button type="button" class="btn btn-primary" id="close-school">Close</button>
+			</div>
+			<div class="row">
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+				<div class="span col-sm-8 col-md-8 col-lg-6" id="full-detail-school"></div>
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+			</div>
+		</div>
+
+		<div class="detail" id="detail-final">
+			<div class="bottom-buttons">
+				<button type="button" class="btn btn-primary btn-lg" id="try-again">Try Again</button>
+			</div>
+			<div class="row">
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+				<div class="span col-sm-8 col-md-8 col-lg-6" id="full-detail-final"></div>
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+			</div>
+			<div class="row">
+				<div class="span col-sm-2 col-md-2 col-lg-2"></div>
+				<div class="span col-sm-3 col-md-3 col-lg-3" id="left-detail-final"></div>
+				<div class="span col-sm-2 col-md-2 col-lg-2"></div>
+				<div class="span col-sm-3 col-md-3 col-lg-3" id="right-detail-final"></div>
+				<div class="span col-sm-2 col-md-2 col-lg-2"></div>
+			</div>		</div>
+
+		<div id="container">
+			<div class="row">
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+				<div class="span col-sm-8 col-md-8 col-lg-6" id="full"></div>
+				<div class="span col-sm-2 col-md-2 col-lg-3"></div>
+			</div>
+			<div class="row">
+				<div class="thirds col-sm-4 col-md-4 col-lg-4" id="third-1"></div>
+				<div class="thirds col-sm-4 col-md-4 col-lg-4" id="third-2"></div>
+				<div class="thirds col-sm-4 col-md-4 col-lg-4" id="third-3"></div>
+			</div>
+			<div class="row">
+				<div class="col-sm-8 col-md-8 col-lg-8"></div>
+				<div class="col-sm-3 col-md-3 col-lg-3" id="right-col">
+					<!-- <p class="body" style="margin-top: 20px;">See what would happen with a city-wide controlled choice policy without neighborhood zones and where the make-up of each school reflects the socioeconomic make-up of the city.</p> -->
+				</div>
+				<div class="col-sm-1 col-md-1 col-lg-1"></div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-md-6 col-lg-6" id="left-top"></div>
+				<div class="col-sm-6 col-md-6 col-lg-6"></div>
+			</div>
+		</div>
+
+		<div class="main" id="main">
+
+			<div class="custom-tooltip">
+				<p class="body" id="tooltip"></p>
+			</div>
+
+			<div class="bottom-buttons">
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="learn-more-race">Learn More</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="learn-more-residence">Learn More</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="learn-more-school">Learn More</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-race">Continue</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-income">Continue</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-education">Continue</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-neighborhood-A">Continue</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-neighborhood-B">Continue</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-school">Continue</button>
+				<button type="button" class="btn btn-primary btn-lg right-btn" id="continue-final">Try again</button>
+			</div>
+
+			<div id="residential-policy-buttons">
+				<div class="row">
+					<div class="col-sm-2 col-md-2 col-lg-2"></div>
+					<div class="col-sm-8 col-md-8 col-lg-8">
+						<p class="prompt">Choose a residential policy</p>
+					</div>
+					<div class="col-sm-2 col-md-2 col-lg-2"></div>
+				</div>
+				<div class="row" style="margin-top: 15%;">
+					<div class="col-sm-2 col-md-2 col-lg-2"></div>
+					<div class="col-sm-3 col-md-3 col-lg-3">
+						<button type="button" class="btn btn-primary btn-lg" id="SQ-residential" style="margin-bottom: 5%;">Status Quo Policy</button>
+						<p class="body" style="margin-top: 20px;">This selection replicates current housing patterns.</p>
+					</div>
+					<div class="col-sm-2 col-md-2 col-lg-2"></div>
+					<div class="col-sm-3 col-md-3 col-lg-3">
+						<button type="button" class="btn btn-primary btn-lg" id="LI-residential" style="margin-bottom: 5%;">More Low-Income Housing</button>
+						<p class="body" style="margin-top: 20px;">A low-income housing policy adds more low-income housing in higher value neighborhoods. </br> This may allow you to move to a nicer neighborhood.</p>
+					</div>
+					<div class="col-sm-2 col-md-2 col-lg-2"></div>
+				</div>
+			</div>
+
+			<div id="assignment-policy-buttons">
+				<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					<label class="btn btn-primary btn-sm active" id="SQ-assignment">
+						<input type="radio" name="options" id="option1" autocomplete="off" checked> Status Quo
+					</label>
+					<label class="btn btn-primary btn-sm" id="CC-Chicago">
+						<input type="radio" name="options" id="option2" autocomplete="off"> City-Wide Controlled Choice
+					</label>
+					<!-- <label class="btn btn-primary btn-sm" id="full-attendance">
+						<input type="radio" name="options" id="option3" autocomplete="off"> Full Attendance
+					</label> -->
+				</div>
+			</div>
+
+		</div>
+
+		<div id="sidebar">
+				<div class="sidebar-section" id="image">
+				</div>
+				<div class="sidebar-section" id="race">
+					<p class="body-sm">Race/Ethnicity</p>
+					<p class="body profile-race"></p>
+				</div>
+				<div class="sidebar-section" id="income">
+					<p class="body-sm">Income</p>
+					<p class="body profile-income"></p>
+				</div>
+				<div class="sidebar-section" id="education">
+					<p class="body-sm">Readiness</p>
+					<p class="body profile-readiness"></p>
+				</div>
+				<div class="sidebar-section" id="neighborhood">
+					<p class="body-sm">Neighborhood</p>
+					<p class="body profile-neighborhood"></p>
+				</div>
+				<div class="sidebar-section" id="residential-segregation">
+					<p class="body-sm">Residential Segregation</p>
+					<p class="body profile-residential-segregation"></p>
+				</div>
+				<div class="sidebar-section" id="school">
+					<p class="body-sm">School</p>
+					<p class="body profile-school"></p>
+				</div>
+				<div class="sidebar-section" id="school-segregation">
+					<p class="body-sm">School Segregation</p>
+					<p class="body profile-school-segregation"></p>
+				</div>
+				<div class="sidebar-section" id="academic-score">
+					<p class="body-sm">Your School's Academics</p>
+					<p class="body profile-academic"></p>
+				</div>
+				<div class="sidebar-section" id="non-academic-score">
+					<p class="body-sm">Your School's Diversity</p>
+					<p class="body profile-non-academic"></p>
+				</div>
+		</div>
+
+		<defs>
+			<linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+				<stop offset="0%"   stop-color="#05a"/>
+				<stop offset="100%" stop-color="#0a5"/>
+			</linearGradient>
+		</defs>
+
+		<script src='./lib/d3.js' type='text/javascript'></script>
+		<script src='./lib/jquery-1.12.4.min.js'></script>
+		<script src='./lib/bootstrap.min.js'></script>
+
+		<!--include modules-->
+		<script src='./modules/main.js' type='text/javascript'></script>
+		<script src='./modules/profile.js' type='text/javascript'></script>
+		<script src='./modules/results.js' type='text/javascript'></script>
+		<script src='./modules/detailPop.js' type='text/javascript'></script>
+		<script src='./modules/detailRes.js' type='text/javascript'></script>
+		<script src='./modules/detailSchool.js' type='text/javascript'></script>
+		<script src='./modules/detailFinal.js' type='text/javascript'></script>
+		<script src='script.js' type='text/javascript'></script>
+
+	</body>
+</html>
